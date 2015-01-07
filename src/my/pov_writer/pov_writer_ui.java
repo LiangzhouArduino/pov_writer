@@ -42,7 +42,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jLabelAuthor = new javax.swing.JLabel();
         jPanelBottom = new javax.swing.JPanel();
         jButtonWrite = new javax.swing.JButton();
-        jButtonClear = new javax.swing.JButton();
         jButtonCov = new javax.swing.JButton();
         jPanelShow = new javax.swing.JPanel();
         jScrollPaneText = new javax.swing.JScrollPane();
@@ -100,14 +99,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
             }
         });
 
-        jButtonClear.setText("clear");
-        jButtonClear.setPreferredSize(new java.awt.Dimension(60, 30));
-        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonClearActionPerformed(evt);
-            }
-        });
-
         jButtonCov.setText("convert");
         jButtonCov.setPreferredSize(new java.awt.Dimension(80, 30));
         jButtonCov.addActionListener(new java.awt.event.ActionListener() {
@@ -123,11 +114,9 @@ public class pov_writer_ui extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottomLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonCov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonWrite)
-                .addGap(36, 36, 36)
-                .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(152, 152, 152))
         );
         jPanelBottomLayout.setVerticalGroup(
             jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,7 +124,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonWrite)
-                    .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -223,10 +211,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void jButtonWriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWriteActionPerformed
         int covW, covH;
@@ -360,7 +344,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonCov;
     private javax.swing.JButton jButtonWrite;
     private javax.swing.JDialog jDialogAbout;
