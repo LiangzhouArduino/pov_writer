@@ -188,21 +188,28 @@ public class pov_writer_ui extends javax.swing.JFrame {
         int pixX, pixY, centerX, centerY;
         centerX = covW / 2;
         centerY = covH / 2;
-        try {
-            for (i = 0; i < 360; i += degree) {
-                int hex = 0, mask = 1;
-                for (j = 0; j < 16; j++) {
-                    pixX = centerX + (int) Math.round(Math.sin(i) * (ignore + j));
-                    pixY = centerY + (int) Math.round(Math.cos(i) * (ignore + j));
+        for (i = 0; i < 360; i += degree) {
+            int hex = 0, mask = 1;
+            for (j = 0; j < 16; j++) {
+                pixX = centerX + (int) Math.round(Math.sin(i) * (ignore + j));
+                pixY = centerY + (int) Math.round(Math.cos(i) * (ignore + j));
+                try {
                     if ((bufferedImage.getRGB(pixX, pixY) & 0xFFFFFF) == 0) {
                         hex += mask;
                     }
-                    mask = mask << 1;
-//                jTextAreaHex.append("rgb:" + Integer.toBinaryString(bufferedImage.getRGB(pixX, pixY)) + "\n");
+                } catch (Exception e) {
                 }
-                jTextAreaHex.append("0x" + Integer.toHexString(hex) + "\n");
+                mask = mask << 1;
+//                jTextAreaHex.append("rgb:" + Integer.toBinaryString(bufferedImage.getRGB(pixX, pixY)) + "\n");
             }
-        } catch (Exception e) {
+            String hexStr = Integer.toHexString(hex); 
+            int pre0;
+            pre0 = 4 - hexStr.length();
+            while(pre0>0){
+                hexStr = "0"+hexStr;
+                pre0--;
+            }
+            jTextAreaHex.append("0x" + hexStr + "\n");
         }
     }//GEN-LAST:event_jButtonWriteActionPerformed
 
@@ -251,10 +258,10 @@ public class pov_writer_ui extends javax.swing.JFrame {
         bufferedImage.getGraphics().drawImage(resizeImage.getImage(), 0, 0, rsW, rsH, null);
         resizeImage.setImage(bufferedImage);
         if (rsW > rsH) {
-            covImage = new ImageIcon(resizeImage.getImage().getScaledInstance(-1, 40, Image.SCALE_DEFAULT));
+            covImage = new ImageIcon(resizeImage.getImage().getScaledInstance(40, -1, Image.SCALE_DEFAULT));
             resizeImage.setImage(covImage.getImage().getScaledInstance(300, -1, Image.SCALE_DEFAULT));
         } else {
-            covImage = new ImageIcon(resizeImage.getImage().getScaledInstance(40, -1, Image.SCALE_DEFAULT));
+            covImage = new ImageIcon(resizeImage.getImage().getScaledInstance(-1, 40, Image.SCALE_DEFAULT));
             resizeImage.setImage(covImage.getImage().getScaledInstance(-1, 300, Image.SCALE_DEFAULT));
         }
         jLabelImage.setIcon(resizeImage);
