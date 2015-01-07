@@ -180,10 +180,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
             File selectedFile = fileChooser.getSelectedFile();
             if (selectedFile != null) {
                 String filename = selectedFile.getAbsolutePath();
-//                ImageIcon smallImage = new ImageIcon(filename);
-//                smallImage.setImage(smallImage.getImage().getScaledInstance(60, -1, Image.SCALE_DEFAULT));
-//                smallImage.setImage(smallImage.getImage().getScaledInstance(200, -1, Image.SCALE_DEFAULT));
-
                 try {
                     Image image = ImageIO.read(new File(filename));
                     resizeImage = new ImageIcon();
@@ -194,12 +190,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
                     } else {
                         resizeImage.setImage(image.getScaledInstance(400, -1, Image.SCALE_DEFAULT));
                     }
-                    //BufferedImage bufferedImage = new BufferedImage(srcW, srcH, BufferedImage.TYPE_3BYTE_BGR);
-                    //bufferedImage.getGraphics().drawImage(image, 0, 0, srcW, srcH, null);
-                    //bufferedImage = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null).filter(bufferedImage, null);
-                    //ImageIcon grayImage = new ImageIcon(bufferedImage);
-                    //grayImage.setImage(grayImage.getImage().getScaledInstance(60, -1, Image.SCALE_DEFAULT));
-                    //grayImage.setImage(grayImage.getImage().getScaledInstance(200, -1, Image.SCALE_DEFAULT));
                     jLabelImage = new JLabel(resizeImage);
                     jLabelImage.setBounds(0, 0, resizeImage.getIconWidth(), resizeImage.getIconHeight());
                     jLabelImage.setVisible(true);
@@ -231,6 +221,7 @@ public class pov_writer_ui extends javax.swing.JFrame {
         }
         jLabelImage.setIcon(resizeImage);
         repaint();
+        //bufferedImage = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null).filter(bufferedImage, null);
     }//GEN-LAST:event_jButtonCovActionPerformed
 
     /**
