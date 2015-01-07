@@ -37,6 +37,9 @@ public class pov_writer_ui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialogAbout = new javax.swing.JDialog();
+        jLabelVersion = new javax.swing.JLabel();
+        jLabelAuthor = new javax.swing.JLabel();
         jPanelBottom = new javax.swing.JPanel();
         jButtonWrite = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
@@ -49,8 +52,46 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jMenuItemOpen = new javax.swing.JMenuItem();
         jMenuItemQuit = new javax.swing.JMenuItem();
         jMenuHelp = new javax.swing.JMenu();
+        jMenuItemAbout = new javax.swing.JMenuItem();
+
+        jDialogAbout.setTitle("About");
+        jDialogAbout.setAlwaysOnTop(true);
+        jDialogAbout.setResizable(false);
+
+        jLabelVersion.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        jLabelVersion.setText("beta 1.0");
+        jLabelVersion.setToolTipText("Version");
+
+        jLabelAuthor.setFont(new java.awt.Font("WenQuanYi Micro Hei Mono", 0, 18)); // NOI18N
+        jLabelAuthor.setText("刀客出品，必属精品！");
+
+        javax.swing.GroupLayout jDialogAboutLayout = new javax.swing.GroupLayout(jDialogAbout.getContentPane());
+        jDialogAbout.getContentPane().setLayout(jDialogAboutLayout);
+        jDialogAboutLayout.setHorizontalGroup(
+            jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogAboutLayout.createSequentialGroup()
+                .addGap(173, 173, 173)
+                .addComponent(jLabelVersion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogAboutLayout.createSequentialGroup()
+                .addContainerGap(116, Short.MAX_VALUE)
+                .addComponent(jLabelAuthor)
+                .addGap(104, 104, 104))
+        );
+        jDialogAboutLayout.setVerticalGroup(
+            jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogAboutLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabelVersion)
+                .addGap(32, 32, 32)
+                .addComponent(jLabelAuthor)
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
+
+        jDialogAbout.getAccessibleContext().setAccessibleParent(this);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jButtonWrite.setText("write");
         jButtonWrite.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +182,15 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jMenuBarTop.add(jMenuFile);
 
         jMenuHelp.setText("Help");
+
+        jMenuItemAbout.setText("About");
+        jMenuItemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAboutActionPerformed(evt);
+            }
+        });
+        jMenuHelp.add(jMenuItemAbout);
+
         jMenuBarTop.add(jMenuHelp);
 
         setJMenuBar(jMenuBarTop);
@@ -202,11 +252,11 @@ public class pov_writer_ui extends javax.swing.JFrame {
                 mask = mask << 1;
 //                jTextAreaHex.append("rgb:" + Integer.toBinaryString(bufferedImage.getRGB(pixX, pixY)) + "\n");
             }
-            String hexStr = Integer.toHexString(hex); 
+            String hexStr = Integer.toHexString(hex);
             int pre0;
             pre0 = 4 - hexStr.length();
-            while(pre0>0){
-                hexStr = "0"+hexStr;
+            while (pre0 > 0) {
+                hexStr = "0" + hexStr;
                 pre0--;
             }
             jTextAreaHex.append("0x" + hexStr + "\n");
@@ -269,6 +319,12 @@ public class pov_writer_ui extends javax.swing.JFrame {
         //bufferedImage = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null).filter(bufferedImage, null);
     }//GEN-LAST:event_jButtonCovActionPerformed
 
+    private void jMenuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAboutActionPerformed
+        jDialogAbout.setSize(400, 200);
+        jDialogAbout.setLocationRelativeTo(null);
+        jDialogAbout.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAboutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,7 +332,7 @@ public class pov_writer_ui extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -307,9 +363,13 @@ public class pov_writer_ui extends javax.swing.JFrame {
     private javax.swing.JButton jButtonClear;
     private javax.swing.JButton jButtonCov;
     private javax.swing.JButton jButtonWrite;
+    private javax.swing.JDialog jDialogAbout;
+    private javax.swing.JLabel jLabelAuthor;
+    private javax.swing.JLabel jLabelVersion;
     private javax.swing.JMenuBar jMenuBarTop;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenu jMenuHelp;
+    private javax.swing.JMenuItem jMenuItemAbout;
     private javax.swing.JMenuItem jMenuItemOpen;
     private javax.swing.JMenuItem jMenuItemQuit;
     private javax.swing.JPanel jPanelBottom;
