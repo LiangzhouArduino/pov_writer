@@ -114,9 +114,9 @@ public class pov_writer_ui extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottomLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonCov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(62, 62, 62)
                 .addComponent(jButtonWrite)
-                .addGap(152, 152, 152))
+                .addGap(117, 117, 117))
         );
         jPanelBottomLayout.setVerticalGroup(
             jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
