@@ -13,6 +13,7 @@ import java.awt.event.*;
 import java.awt.color.ColorSpace;
 import java.util.Arrays;
 import java.io.*;
+import java.lang.*;
 
 /**
  *
@@ -41,6 +42,8 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jButtonClear = new javax.swing.JButton();
         jButtonCov = new javax.swing.JButton();
         jPanelShow = new javax.swing.JPanel();
+        jScrollPaneText = new javax.swing.JScrollPane();
+        jTextAreaHex = new javax.swing.JTextArea();
         jMenuBarTop = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemOpen = new javax.swing.JMenuItem();
@@ -96,16 +99,24 @@ public class pov_writer_ui extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanelShow.setBackground(new java.awt.Color(254, 254, 254));
+        jPanelShow.setPreferredSize(new java.awt.Dimension(300, 300));
+
         javax.swing.GroupLayout jPanelShowLayout = new javax.swing.GroupLayout(jPanelShow);
         jPanelShow.setLayout(jPanelShowLayout);
         jPanelShowLayout.setHorizontalGroup(
             jPanelShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
         jPanelShowLayout.setVerticalGroup(
             jPanelShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
+
+        jTextAreaHex.setEditable(false);
+        jTextAreaHex.setColumns(15);
+        jTextAreaHex.setRows(5);
+        jScrollPaneText.setViewportView(jTextAreaHex);
 
         jMenuFile.setText("File");
 
@@ -144,14 +155,17 @@ public class pov_writer_ui extends javax.swing.JFrame {
                     .addComponent(jPanelBottom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jScrollPaneText, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneText))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -165,7 +179,31 @@ public class pov_writer_ui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void jButtonWriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWriteActionPerformed
-
+        int covW, covH;
+        covW = covImage.getIconWidth();
+        covH = covImage.getIconHeight();
+        BufferedImage bufferedImage = new BufferedImage(covW, covH, BufferedImage.TYPE_BYTE_BINARY);
+        bufferedImage.getGraphics().drawImage(covImage.getImage(), 0, 0, covW, covH, null);
+        int i, j, degree = 4, ignore = 3;
+        int pixX, pixY, centerX, centerY;
+        centerX = covW / 2;
+        centerY = covH / 2;
+        try {
+            for (i = 0; i < 360; i += degree) {
+                int hex = 0, mask = 1;
+                for (j = 0; j < 16; j++) {
+                    pixX = centerX + (int) Math.round(Math.sin(i) * (ignore + j));
+                    pixY = centerY + (int) Math.round(Math.cos(i) * (ignore + j));
+                    if ((bufferedImage.getRGB(pixX, pixY) & 0xFFFFFF) == 0) {
+                        hex += mask;
+                    }
+                    mask = mask << 1;
+//                jTextAreaHex.append("rgb:" + Integer.toBinaryString(bufferedImage.getRGB(pixX, pixY)) + "\n");
+                }
+                jTextAreaHex.append("0x" + Integer.toHexString(hex) + "\n");
+            }
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_jButtonWriteActionPerformed
 
     private void jMenuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitActionPerformed
@@ -186,9 +224,9 @@ public class pov_writer_ui extends javax.swing.JFrame {
                     int srcH = image.getHeight(null);
                     int srcW = image.getWidth(null);
                     if (srcH > srcW) {
-                        resizeImage.setImage(image.getScaledInstance(-1, 400, Image.SCALE_DEFAULT));
+                        resizeImage.setImage(image.getScaledInstance(-1, 300, Image.SCALE_DEFAULT));
                     } else {
-                        resizeImage.setImage(image.getScaledInstance(400, -1, Image.SCALE_DEFAULT));
+                        resizeImage.setImage(image.getScaledInstance(300, -1, Image.SCALE_DEFAULT));
                     }
                     jLabelImage = new JLabel(resizeImage);
                     jLabelImage.setBounds(0, 0, resizeImage.getIconWidth(), resizeImage.getIconHeight());
@@ -203,7 +241,7 @@ public class pov_writer_ui extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
 
     private void jButtonCovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCovActionPerformed
-        if(jLabelImage == null){
+        if (jLabelImage == null) {
             return;
         }
         int rsW, rsH;
@@ -212,12 +250,12 @@ public class pov_writer_ui extends javax.swing.JFrame {
         BufferedImage bufferedImage = new BufferedImage(rsW, rsH, BufferedImage.TYPE_BYTE_BINARY);
         bufferedImage.getGraphics().drawImage(resizeImage.getImage(), 0, 0, rsW, rsH, null);
         resizeImage.setImage(bufferedImage);
-        if(rsW>rsH){
-            resizeImage.setImage(resizeImage.getImage().getScaledInstance(60, -1, Image.SCALE_DEFAULT));
-            resizeImage.setImage(resizeImage.getImage().getScaledInstance(400, -1, Image.SCALE_DEFAULT));
-        }else{
-            resizeImage.setImage(resizeImage.getImage().getScaledInstance(-1, 60, Image.SCALE_DEFAULT));
-            resizeImage.setImage(resizeImage.getImage().getScaledInstance(-1, 400, Image.SCALE_DEFAULT));
+        if (rsW > rsH) {
+            covImage = new ImageIcon(resizeImage.getImage().getScaledInstance(-1, 40, Image.SCALE_DEFAULT));
+            resizeImage.setImage(covImage.getImage().getScaledInstance(300, -1, Image.SCALE_DEFAULT));
+        } else {
+            covImage = new ImageIcon(resizeImage.getImage().getScaledInstance(40, -1, Image.SCALE_DEFAULT));
+            resizeImage.setImage(covImage.getImage().getScaledInstance(-1, 300, Image.SCALE_DEFAULT));
         }
         jLabelImage.setIcon(resizeImage);
         repaint();
@@ -269,7 +307,10 @@ public class pov_writer_ui extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemQuit;
     private javax.swing.JPanel jPanelBottom;
     private javax.swing.JPanel jPanelShow;
+    private javax.swing.JScrollPane jScrollPaneText;
+    private javax.swing.JTextArea jTextAreaHex;
     // End of variables declaration//GEN-END:variables
     private JLabel jLabelImage;
     private ImageIcon resizeImage;
+    private ImageIcon covImage;
 }
