@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
+import java.awt.event.*;
 import java.awt.color.ColorSpace;
 import java.util.Arrays;
 import java.io.*;
@@ -38,8 +39,8 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jPanelBottom = new javax.swing.JPanel();
         jButtonWrite = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
+        jButtonCov = new javax.swing.JButton();
         jPanelShow = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jMenuBarTop = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemOpen = new javax.swing.JMenuItem();
@@ -56,9 +57,18 @@ public class pov_writer_ui extends javax.swing.JFrame {
         });
 
         jButtonClear.setText("clear");
+        jButtonClear.setPreferredSize(new java.awt.Dimension(60, 30));
         jButtonClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonClearActionPerformed(evt);
+            }
+        });
+
+        jButtonCov.setText("convert");
+        jButtonCov.setPreferredSize(new java.awt.Dimension(80, 30));
+        jButtonCov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCovActionPerformed(evt);
             }
         });
 
@@ -67,11 +77,13 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jPanelBottomLayout.setHorizontalGroup(
             jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBottomLayout.createSequentialGroup()
-                .addContainerGap(327, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonCov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addComponent(jButtonWrite)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonClear)
-                .addGap(25, 25, 25))
+                .addGap(36, 36, 36)
+                .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
         jPanelBottomLayout.setVerticalGroup(
             jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,7 +91,8 @@ public class pov_writer_ui extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonWrite)
-                    .addComponent(jButtonClear))
+                    .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -87,22 +100,17 @@ public class pov_writer_ui extends javax.swing.JFrame {
         jPanelShow.setLayout(jPanelShowLayout);
         jPanelShowLayout.setHorizontalGroup(
             jPanelShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelShowLayout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         jPanelShowLayout.setVerticalGroup(
             jPanelShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelShowLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(430, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         jMenuFile.setText("File");
 
-        jMenuItemOpen.setText("open");
+        jMenuItemOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemOpen.setText("Open");
         jMenuItemOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemOpenActionPerformed(evt);
@@ -110,6 +118,7 @@ public class pov_writer_ui extends javax.swing.JFrame {
         });
         jMenuFile.add(jMenuItemOpen);
 
+        jMenuItemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemQuit.setText("Quit");
         jMenuItemQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,8 +141,10 @@ public class pov_writer_ui extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelBottom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelBottom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,7 +154,7 @@ public class pov_writer_ui extends javax.swing.JFrame {
                 .addComponent(jPanelShow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -154,7 +165,7 @@ public class pov_writer_ui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonClearActionPerformed
 
     private void jButtonWriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWriteActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButtonWriteActionPerformed
 
     private void jMenuItemQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuitActionPerformed
@@ -175,25 +186,52 @@ public class pov_writer_ui extends javax.swing.JFrame {
 
                 try {
                     Image image = ImageIO.read(new File(filename));
+                    resizeImage = new ImageIcon();
                     int srcH = image.getHeight(null);
                     int srcW = image.getWidth(null);
-                    BufferedImage bufferedImage = new BufferedImage(srcW, srcH, BufferedImage.TYPE_3BYTE_BGR);
-                    bufferedImage.getGraphics().drawImage(image, 0, 0, srcW, srcH, null);
-                    bufferedImage = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null).filter(bufferedImage, null);
-                    ImageIcon grayImage = new ImageIcon(bufferedImage);
-                    grayImage.setImage(grayImage.getImage().getScaledInstance(60, -1, Image.SCALE_DEFAULT));
-                    grayImage.setImage(grayImage.getImage().getScaledInstance(200, -1, Image.SCALE_DEFAULT));
-                    jLabel1.setIcon(grayImage);
-//                    JLabel jLabelImage = new JLabel(grayImage);
-//                    jPanelShow.add(pane, BorderLayout.CENTER);
-
-                   
+                    if (srcH > srcW) {
+                        resizeImage.setImage(image.getScaledInstance(-1, 400, Image.SCALE_DEFAULT));
+                    } else {
+                        resizeImage.setImage(image.getScaledInstance(400, -1, Image.SCALE_DEFAULT));
+                    }
+                    //BufferedImage bufferedImage = new BufferedImage(srcW, srcH, BufferedImage.TYPE_3BYTE_BGR);
+                    //bufferedImage.getGraphics().drawImage(image, 0, 0, srcW, srcH, null);
+                    //bufferedImage = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null).filter(bufferedImage, null);
+                    //ImageIcon grayImage = new ImageIcon(bufferedImage);
+                    //grayImage.setImage(grayImage.getImage().getScaledInstance(60, -1, Image.SCALE_DEFAULT));
+                    //grayImage.setImage(grayImage.getImage().getScaledInstance(200, -1, Image.SCALE_DEFAULT));
+                    jLabelImage = new JLabel(resizeImage);
+                    jLabelImage.setBounds(0, 0, resizeImage.getIconWidth(), resizeImage.getIconHeight());
+                    jLabelImage.setVisible(true);
+                    jPanelShow.add(jLabelImage);
+                    repaint();
                 } catch (IOException ioe) {
                     System.err.println("Error reading file");
                 }
             }
         }
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
+
+    private void jButtonCovActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCovActionPerformed
+        if(jLabelImage == null){
+            return;
+        }
+        int rsW, rsH;
+        rsW = resizeImage.getIconWidth();
+        rsH = resizeImage.getIconHeight();
+        BufferedImage bufferedImage = new BufferedImage(rsW, rsH, BufferedImage.TYPE_BYTE_BINARY);
+        bufferedImage.getGraphics().drawImage(resizeImage.getImage(), 0, 0, rsW, rsH, null);
+        resizeImage.setImage(bufferedImage);
+        if(rsW>rsH){
+            resizeImage.setImage(resizeImage.getImage().getScaledInstance(60, -1, Image.SCALE_DEFAULT));
+            resizeImage.setImage(resizeImage.getImage().getScaledInstance(400, -1, Image.SCALE_DEFAULT));
+        }else{
+            resizeImage.setImage(resizeImage.getImage().getScaledInstance(-1, 60, Image.SCALE_DEFAULT));
+            resizeImage.setImage(resizeImage.getImage().getScaledInstance(-1, 400, Image.SCALE_DEFAULT));
+        }
+        jLabelImage.setIcon(resizeImage);
+        repaint();
+    }//GEN-LAST:event_jButtonCovActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,8 +269,8 @@ public class pov_writer_ui extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonCov;
     private javax.swing.JButton jButtonWrite;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBarTop;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenu jMenuHelp;
@@ -241,4 +279,6 @@ public class pov_writer_ui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelBottom;
     private javax.swing.JPanel jPanelShow;
     // End of variables declaration//GEN-END:variables
+    private JLabel jLabelImage;
+    private ImageIcon resizeImage;
 }
